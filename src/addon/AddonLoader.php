@@ -74,20 +74,10 @@ class AddonLoader extends PluginBase
 
         # InvMenu API
         InvMenuHandler::register($this);
-
-        # RCONClient
-        $data = $this->getConfig()->getAll()['rcon-server'];
-        $rcon = new RCONClient($data['address'], $data['password'], $this->getServer()->getLogger(), $data['port'], $data['timeout']);
-        $rcon->sendCommand('status uhc on');
     }
 
     public function onDisable()
     {
-        # RCONClient
-        $data = $this->getConfig()->getAll()['rcon-server'];
-        $rcon = new RCONClient($data['address'], $data['password'], $this->getServer()->getLogger(), $data['port'], $data['timeout']);
-        $rcon->sendCommand('status uhc off');
-
         # Config
         $nicks = new Config($this->getDataFolder() . 'nicks.yml', Config::YAML);
         $nicks->setAll([]);
